@@ -1,0 +1,16 @@
+# Data files
+*.gz
+data/
+!data/README.md
+
+# babi saved model
+dnc/babi-model
+
+# Python
+*.pyc
+
+# Mac OS X custom attribute files
+.DS_Store
+
+# Logs
+*logs*/
