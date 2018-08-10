@@ -7,7 +7,7 @@ import time, argparse
 To run:
 python autoencoder_mnist.py 2
 
-tensorboard --logdir "mnist_autoencoder_hidden=2_logs_backup"
+tensorboard --logdir "mnist_autoencoder_hidden=2_logs"
 """
 
 # Architecture
@@ -134,7 +134,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     n_code = args.n_code[0]
 
-    mnist = input_data.read_data_sets("../data/", one_hot=True)
+    #mnist = input_data.read_data_sets("../data/", one_hot=True)
+    mnist = input_data.read_data_sets("../../../Datasets/MNIST_data/", one_hot=True)
 
     with tf.Graph().as_default():
 
@@ -163,10 +164,12 @@ if __name__ == '__main__':
             sess = tf.Session()
 
             #train_writer = tf.train.SummaryWriter("mnist_autoencoder_hidden=" + n_code + "_logs/", graph=sess.graph)
-            train_writer = tf.summary.FileWriter("mnist_autoencoder_hidden="+ n_code + "_logs/", graph_def=sess.graph_def)
+            #train_writer = tf.summary.FileWriter("mnist_autoencoder_hidden="+ n_code + "_logs/", graph_def=sess.graph_def)
+            train_writer = tf.summary.FileWriter("../../../Artificial-Neural-Network-Weights/mnist_autoencoder_hidden="+ n_code + "_logs/", graph_def=sess.graph_def)
 
             #val_writer = tf.train.SummaryWriter("mnist_autoencoder_hidden=" + n_code + "_logs/", graph=sess.graph)
-            val_writer = tf.summary.FileWriter("mnist_autoencoder_hidden=" + n_code + "_logs/", graph_def=sess.graph_def)
+            #val_writer = tf.summary.FileWriter("mnist_autoencoder_hidden=" + n_code + "_logs/", graph_def=sess.graph_def)
+            val_writer = tf.summary.FileWriter("../../../Artificial-Neural-Network-Weights/mnist_autoencoder_hidden=" + n_code + "_logs/", graph_def=sess.graph_def)
 
             #init_op = tf.initialize_all_variables()
             init_op = tf.global_variables_initializer()
@@ -198,11 +201,11 @@ if __name__ == '__main__':
                     val_writer.add_summary(val_summary, sess.run(global_step))
                     print("Validation Loss:", validation_loss)
 
-                    saver.save(sess, "mnist_autoencoder_hidden=" + n_code + "_logs/model-checkpoint-" + '%04d' % (epoch+1), global_step=global_step)
+                    #saver.save(sess, "mnist_autoencoder_hidden=" + n_code + "_logs/model-checkpoint-" + '%04d' % (epoch+1), global_step=global_step)
+                    saver.save(sess, "../../../Artificial-Neural-Network-Weights/mnist_autoencoder_hidden=" + n_code + "_logs/"+"model-checkpoint-" + '%04d' % (epoch+1), global_step=global_step)
 
 
             print("Optimization Finished!")
-
 
             test_loss = sess.run(eval_op, feed_dict={x: mnist.test.images, phase_train: False})
 

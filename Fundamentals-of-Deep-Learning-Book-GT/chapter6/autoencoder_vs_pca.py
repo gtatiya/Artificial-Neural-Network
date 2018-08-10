@@ -8,6 +8,7 @@ import numpy as np
 
 """
 python autoencoder_vs_pca.py "mnist_autoencoder_hidden=2_logs_backup\model-checkpoint-1000-550000"
+python autoencoder_vs_pca.py "../../../Artificial-Neural-Network-Weights/mnist_autoencoder_hidden=2_logs/model-checkpoint-1000-550000"
 """
 
 def scatter(codes, labels):
@@ -24,8 +25,8 @@ def scatter(codes, labels):
         ('#f39c12', 'x'),
     ]
     for num in range(10):
-        plt.scatter([codes[:,0][i] for i in range(len(labels)) if labels[i] == num],
-        [codes[:,1][i] for i in range(len(labels)) if labels[i] == num], 7,
+        plt.scatter([codes[:,0][i] for i in range(len(labels)) if (labels[i] == num).all],
+        [codes[:,1][i] for i in range(len(labels)) if (labels[i] == num).all], 7,
         label=str(num), color = colors[num][0], marker=colors[num][1])
     plt.legend()
     plt.show()
@@ -37,7 +38,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     print("\nPULLING UP MNIST DATA")
-    mnist = input_data.read_data_sets("../data/", one_hot=False)
+    #mnist = input_data.read_data_sets("../data/", one_hot=False)
+    mnist = input_data.read_data_sets("../../../Datasets/MNIST_data/", one_hot=True)
     print(mnist.test.labels)
 
     """

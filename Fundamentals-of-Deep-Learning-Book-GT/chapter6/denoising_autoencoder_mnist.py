@@ -6,7 +6,7 @@ import time, argparse
 """
 python denoising_autoencoder_mnist.py 2
 
-tensorboard --logdir "dn_mnist_autoencoder_hidden=2_logs_backup"
+tensorboard --logdir "dn_mnist_autoencoder_hidden=2_logs"
 """
 
 # Architecture
@@ -126,7 +126,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     n_code = args.n_code[0]
 
-    mnist = input_data.read_data_sets("../data/", one_hot=True)
+    #mnist = input_data.read_data_sets("../data/", one_hot=True)
+    mnist = input_data.read_data_sets("../../../Datasets/MNIST_data/", one_hot=True)
 
     with tf.Graph().as_default():
 
@@ -157,11 +158,11 @@ if __name__ == '__main__':
 
             sess = tf.Session()
 
-            train_writer = tf.summary.FileWriter("dn_mnist_autoencoder_hidden=" + n_code + "_logs/",
-                                                graph=sess.graph_def)
+            #train_writer = tf.summary.FileWriter("dn_mnist_autoencoder_hidden=" + n_code + "_logs/", graph=sess.graph_def)
+            train_writer = tf.summary.FileWriter("../../../Artificial-Neural-Network-Weights/dn_mnist_autoencoder_hidden=" + n_code + "_logs/", graph=sess.graph_def)
 
-            val_writer = tf.summary.FileWriter("dn_mnist_autoencoder_hidden=" + n_code + "_logs/",
-                                                graph=sess.graph_def)
+            #val_writer = tf.summary.FileWriter("dn_mnist_autoencoder_hidden=" + n_code + "_logs/", graph=sess.graph_def)
+            val_writer = tf.summary.FileWriter("../../../Artificial-Neural-Network-Weights/dn_mnist_autoencoder_hidden=" + n_code + "_logs/", graph=sess.graph_def)
 
             init_op = tf.global_variables_initializer()
 
@@ -184,7 +185,6 @@ if __name__ == '__main__':
                 if epoch % display_step == 0:
                     print("Epoch:", '%04d' % (epoch+1), "cost =", "{:.9f}".format(avg_cost))
 
-
                     train_writer.add_summary(train_summary, sess.run(global_step))
 
                     validation_loss, in_im, out_im, val_summary = sess.run([eval_op, in_im_op, out_im_op, val_summary_op], feed_dict={x: mnist.validation.images, phase_train: False, corrupt: 1})
@@ -193,7 +193,8 @@ if __name__ == '__main__':
                     val_writer.add_summary(val_summary, sess.run(global_step))
                     print("Validation Loss:", validation_loss)
 
-                    saver.save(sess, "dn_mnist_autoencoder_hidden=" + n_code + "_logs/model-checkpoint-" + '%04d' % (epoch+1), global_step=global_step)
+                    #saver.save(sess, "dn_mnist_autoencoder_hidden=" + n_code + "_logs/model-checkpoint-" + '%04d' % (epoch+1), global_step=global_step)
+                    saver.save(sess, "../../../Artificial-Neural-Network-Weights/dn_mnist_autoencoder_hidden=" + n_code + "_logs/model-checkpoint-" + '%04d' % (epoch+1), global_step=global_step)
 
 
             print("Optimization Finished!")
