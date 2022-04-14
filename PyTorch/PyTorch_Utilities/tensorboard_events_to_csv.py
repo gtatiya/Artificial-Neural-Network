@@ -14,7 +14,7 @@ import pandas as pd
 
 
 # Get all event* runs from logging_dir subdirectories
-logging_dir = '/home/gyan/BoschServer/data2/datasets/mml/soundspaces/models/savn_sp/tb'
+logging_dir = '/home/gyan/BoschServer/nas/shared/dataset/mml/soundspaces/models/savn_sp/audio_1/tb/2021-08-05-14-54-55'
 event_paths = glob.glob(os.path.join(logging_dir, "*event*"))
 
 
@@ -40,6 +40,7 @@ def sum_log(path):
         return None
 
     num_metric = len(metric_set)
+    print("num_metric: ", num_metric)
     runlog['epoch'] = [item for sublist in [[i]*num_metric for i in range(0, len(runlog)//num_metric)] for item in sublist]
     
     return runlog
