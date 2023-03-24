@@ -22,7 +22,7 @@ python-dateutil==2.6.1
 pytz==2017.2
 simplegeneric==0.8.1
 six==1.10.0
-tensorflow==1.6.0
+tensorflow==2.11.1
 tensorflow-tensorboard==0.1.4
 traitlets==4.3.2
 wcwidth==0.1.7
